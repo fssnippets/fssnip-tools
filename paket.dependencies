@@ -1,0 +1,7 @@
+source https://nuget.org/api/v2
+
+nuget SQLProvider 
+nuget FSharp.Data
+nuget FSharp.Formatting
+nuget FsPickler
+nuget Paket
