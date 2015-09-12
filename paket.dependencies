@@ -5,3 +5,4 @@ nuget FSharp.Data
 nuget FSharp.Formatting
 nuget FsPickler
 nuget Paket
+nuget FSharp.Azure.StorageTypeProvider

@@ -1,4 +1,8 @@
-﻿#r "packages/FSharp.Data/lib/net40/FSharp.Data.dll"
+﻿// -------------------------------------------------------------------------------------------------
+// Formatting raw snippets offline
+// -------------------------------------------------------------------------------------------------
+
+#r "packages/FSharp.Data/lib/net40/FSharp.Data.dll"
 #r "packages/FsPickler/lib/net40/FsPickler.dll"
 #r "packages/Paket/tools/paket.exe"
 #load "packages/FSharp.Formatting/FSharp.Formatting.fsx"

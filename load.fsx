@@ -1,4 +1,8 @@
-﻿#r "packages/SQLProvider/lib/net40/FSharp.Data.SqlProvider.dll"
+﻿// -------------------------------------------------------------------------------------------------
+// Reading F# snippets from database used by the old version
+// -------------------------------------------------------------------------------------------------
+
+#r "packages/SQLProvider/lib/net40/FSharp.Data.SqlProvider.dll"
 open System
 open System.IO
 open FSharp.Data.Sql
