@@ -64,19 +64,22 @@ open FSharp.Data
 type Snippets = JsonProvider<"""{"snippets":
  [{ "id": 0, "title": "Sample", "comment": "Sample", "author": "Sample", "link": "Sample",
     "date": "2015-06-11T23:39:43.6454087-04:00", "likes": 3, "isPrivate": true, "passcode": "fsharp",
-    "references": ["FSharp","Data"], "source": "fun3d", "versions": 3, "tags": ["fsharp", "sample"] },
+    "references": ["FSharp","Data"], "source": "fun3d", "versions": 3, "tags": ["fsharp", "sample"],
+    "enteredTags": ["fsharp", "sample"] },
   { "id": 0, "title": "Sample", "comment": "Sample", "author": "Sample", "link": "Sample",
     "date": "2015-06-11T23:39:43.6454087-04:00", "likes": 3, "isPrivate": true, "passcode": "fsharp",
-    "references": ["FSharp","Data"], "source": "fun3d", "versions": 3, "tags": ["fsharp", "sample"] }] }""">
+    "references": ["FSharp","Data"], "source": "fun3d", "versions": 3, "tags": ["fsharp", "sample"],
+    "enteredTags": ["fsharp", "sample"] }] }""">
 
 let snippets = 
   [| for i in ctx.``[dbo].[Code]`` ->
       let refs = i.References.Split([|','|], StringSplitOptions.RemoveEmptyEntries) |> Array.map (fun s -> s.Trim())
+      let tags = [| for t in i.FK_CodeTags_Code -> t.Tag |]
       Snippets.Snippet
         ( id = i.ID, title = i.Title, comment = i.Comment, author = i.Author, link = i.Link,
           date = i.Date, likes = i.Likes, isPrivate = i.Private, passcode = "", // i.Passcode,
           references = refs, source = i.Source, versions = Seq.length i.FK_Versions_Code,
-          tags = [| for t in i.FK_CodeTags_Code -> t.Tag |] ) |]
+          tags = tags, enteredTags = tags ) |]
 
 File.WriteAllText(data + "/index.json", Snippets.Root(snippets).JsonValue.ToString())
 
