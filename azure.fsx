@@ -1,11 +1,11 @@
-﻿// -------------------------------------------------------------------------------------------------
-// Initializes the Azure storage with snippet data
-// -------------------------------------------------------------------------------------------------
-
-#load "packages/FSharp.Azure.StorageTypeProvider/StorageTypeProvider.fsx"
+﻿#load "packages/FSharp.Azure.StorageTypeProvider/StorageTypeProvider.fsx"
 open FSharp.Azure.StorageTypeProvider
 open Microsoft.WindowsAzure.Storage.Blob
 open System.IO
+
+// -------------------------------------------------------------------------------------------------
+// Initializes the Azure storage with snippet data
+// -------------------------------------------------------------------------------------------------
 
 // Initialize Azure Storage from example data
 [<Literal>]
@@ -54,7 +54,7 @@ let folders take path dirName (containerName: string) =
 let indexPath = __SOURCE_DIRECTORY__ + "/data/"
 let indexFile = __SOURCE_DIRECTORY__ + "/data/index.json"
 
-//Run this to create the containers
+// Run this to create the containers
 initializeStorage ()
 
 // Upload the local index.json file

@@ -1,11 +1,12 @@
-﻿// -------------------------------------------------------------------------------------------------
-// Formatting raw snippets offline
-// -------------------------------------------------------------------------------------------------
-
-#r "packages/FSharp.Data/lib/net40/FSharp.Data.dll"
+﻿#r "packages/FSharp.Data/lib/net40/FSharp.Data.dll"
 #r "packages/FsPickler/lib/net40/FsPickler.dll"
-#r "packages/Paket/tools/paket.exe"
+#r "packages/FSharp.Compiler.Service/lib/net45/FSharp.Compiler.Service.dll"
+#r "packages/Chessie/lib/net40/Chessie.dll"
+#r "packages/Paket.Core/lib/net45/Paket.Core.dll"
+#r "packages/Suave/lib/net40/Suave.dll"
 #load "packages/FSharp.Formatting/FSharp.Formatting.fsx"
+#load "paket-files/raw.githubusercontent.com/utils.fs"
+#load "paket-files/raw.githubusercontent.com/parser.fs"
 open System
 open System.IO
 open FSharp.Literate
@@ -14,18 +15,23 @@ open Nessos.FsPickler
 open FSharp.Markdown
 open FSharp.Data
 
+// -------------------------------------------------------------------------------------------------
+// Formatting raw snippets offline
+// -------------------------------------------------------------------------------------------------
+
 type Index = JsonProvider<"data/index.json">
 let snippets = Index.GetSample().Snippets
 let data = __SOURCE_DIRECTORY__ + "/data"
 
-let formatAgent = CodeFormat.CreateAgent()
 let pickler = FsPickler.CreateXmlSerializer()
 
-let formatSnippet (parsed:string) (formatted:string) source nuget = 
-  let doc = Literate.ParseScriptString(source, "/Snippet.fsx", formatAgent)  
+let formatSnippet (parsedFile:string) (formattedFile:string) source nuget = 
+  if Array.isEmpty nuget |> not then 
+    printfn "%s\n   %A\n" parsedFile nuget
+  let doc = FsSnip.Parser.parseScript "NA" source nuget
   let html = Literate.WriteHtml(doc, "fs", true, true)
-  File.WriteAllText(formatted, html)
-  use wr = new StreamWriter(parsed)
+  File.WriteAllText(formattedFile, html)
+  use wr = new StreamWriter(parsedFile)
   pickler.Serialize(wr, doc)  
 
 let processSnippets () =
@@ -42,6 +48,13 @@ let processSnippets () =
       if not (File.Exists(formattedFile)) || not (File.Exists(parsedFile)) then
         formatSnippet parsedFile formattedFile source s.References
 
+// Format all snippets - takes a bit of time!
+processSnippets()
+
+
+// -------------------------------------------------------------------------------------------------
+// Sample - how to access data from the formatted snippets?
+// -------------------------------------------------------------------------------------------------
 
 // Pick one of the snippets
 let snippet = snippets |> Seq.nth 0
@@ -82,4 +95,3 @@ for p in doc.Paragraphs do
       printfn "Heading %d: %A" n s
       
   | _ -> failwith "Unexpected content"
-

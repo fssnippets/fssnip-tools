@@ -1,8 +1,12 @@
 source https://nuget.org/api/v2
 
+nuget Suave
 nuget SQLProvider 
 nuget FSharp.Data
 nuget FSharp.Formatting
 nuget FsPickler
-nuget Paket
+nuget Paket.Core
 nuget FSharp.Azure.StorageTypeProvider
+
+http https://raw.githubusercontent.com/fssnippets/fssnip-website/master/code/common/parser.fs parser.fs
+http https://raw.githubusercontent.com/fssnippets/fssnip-website/master/code/common/utils.fs utils.fs
