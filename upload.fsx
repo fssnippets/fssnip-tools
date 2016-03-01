@@ -1,4 +1,5 @@
 ﻿#load "packages/FSharp.Azure.StorageTypeProvider/StorageTypeProvider.fsx"
+#load "config.fsx"
 open FSharp.Azure.StorageTypeProvider
 open Microsoft.WindowsAzure.Storage.Blob
 open System.IO
@@ -8,9 +9,7 @@ open System.IO
 // -------------------------------------------------------------------------------------------------
 
 // Initialize Azure Storage from example data
-[<Literal>]
-let azureConnectionString = "<< ... >>"
-type Azure = AzureTypeProvider<azureConnectionString>
+type Azure = AzureTypeProvider<Config.azureConnectionString>
 
 // Initialization functions - can be used to set up containers and upload example data.
 let initializeStorage () =

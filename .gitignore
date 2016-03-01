@@ -1,7 +1,5 @@
 .paket/paket.exe
-
 data
-
 packages
-
 paket-files
+config.fsx
