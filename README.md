@@ -3,7 +3,8 @@ F# Snippets - Tools
 
 Various scripts and other tools for working with the F# snippets data.
 
- * `azure.fsx` initializes Azure storage and uploads data to blobs
+ * `upload.fsx` initializes Azure storage and uploads data to blobs
+ * `cleanup.fsx` contains random scripts for cleaning malicious edits
  * `format.fsx` formats all snippets as HTML from the source code
  * `load.fsx` reads data from the old fssnip SQL database
  
