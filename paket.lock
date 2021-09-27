@@ -40,5 +40,5 @@ NUGET
 HTTP
   remote: https://raw.githubusercontent.com
   specs:
-    parser.fs (/fssnippets/fssnip-website/master/code/common/parser.fs)
-    utils.fs (/fssnippets/fssnip-website/master/code/common/utils.fs)
+    parser.fs (/fssnippets/fssnip-website/master/src/FsSnip.Website/common/parser.fs)
+    utils.fs (/fssnippets/fssnip-website/master/src/FsSnip.Website/common/utils.fs)

@@ -1,4 +1,4 @@
-.paket/paket.exe
+Paket.Restore.targets
 data
 packages
 paket-files
